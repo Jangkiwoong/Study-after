@@ -29,7 +29,7 @@ public class PostService {
     }
 
     //게시물 조회
-    public  ResponseEntity<Message> readPost(PostRequestDto postRequestDto) {
+    public  ResponseEntity<Message> readPost() {
         List<Post> postlist = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
         for(Post post : postlist) {

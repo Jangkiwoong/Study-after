@@ -24,17 +24,17 @@ public class Postcontroller {
     }
     //게시물 조회
     @GetMapping("/post")
-    public ResponseEntity<Message> readPost(@RequestBody PostRequestDto postRequestDto) {
-        return postService.readPost(postRequestDto);
+    public ResponseEntity<Message> readPost() {
+        return postService.readPost();
     }
     //게시물 수정
    @PatchMapping("/post/{postId}")
-    public ResponseEntity<Message> updatePost(@PathVariable Long postID, @RequestBody PostRequestDto postRequestDto) {
-        return postService.updatePost(postID, postRequestDto);
+    public ResponseEntity<Message> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto) {
+        return postService.updatePost(postId, postRequestDto);
    }
    //게시물 삭제
-    @DeleteMapping("/post/{postID}")
-    public ResponseEntity<Message> deletePost(@PathVariable Long postID) {
-        return postService.deletePost(postID);
+    @DeleteMapping("/post/{postId}")
+    public ResponseEntity<Message> deletePost(@PathVariable Long postId) {
+        return postService.deletePost(postId);
     }
 }
