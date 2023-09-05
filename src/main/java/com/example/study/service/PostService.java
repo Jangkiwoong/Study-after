@@ -3,8 +3,11 @@ package com.example.study.service;
 import com.example.study.dto.PostRequestDto;
 import com.example.study.dto.PostResponseDto;
 import com.example.study.entity.Post;
+import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,29 +22,36 @@ public class PostService {
 
     //게시물 작성
     @Transactional
-    public PostResponseDto createPost(PostRequestDto postRequestDto) {
+    public ResponseEntity<Message> createPost(PostRequestDto postRequestDto) {
         Post post = new Post(postRequestDto);
         postRepository.saveAndFlush(post);
-        return new PostResponseDto(post);
+        return new ResponseEntity<>(new Message("게시글이 작성 되었습니다.",new PostResponseDto(post)), HttpStatus.OK);
     }
 
     //게시물 조회
-    public  List<PostResponseDto> readPost(PostRequestDto postRequestDto) {
+    public  ResponseEntity<Message> readPost(PostRequestDto postRequestDto) {
         List<Post> postlist = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
         for(Post post : postlist) {
             postResponseDtoList.add(new PostResponseDto(post));
         }
-        return postResponseDtoList;
-    }
+        return new ResponseEntity<>(new Message("게시글 전체 조회.",postlist), HttpStatus.OK);    }
 
-
-    public PostResponseDto updatePost(Long postID, PostRequestDto postRequestDto) {
+    //게시물 수정
+    public ResponseEntity<Message> updatePost(Long postID, PostRequestDto postRequestDto) {
        Post post = postRepository.findById(postID).orElseThrow(
                () -> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
        );
        post.update(postRequestDto);
        postRepository.save(post);
-       return new PostResponseDto(post);
+        return new ResponseEntity<>(new Message("게시글이 수정 되었습니다.",new PostResponseDto(post)), HttpStatus.OK);
+    }
+    //게시물 삭제
+    public ResponseEntity<Message> deletePost(Long postID) {
+        postRepository.findById(postID).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
+        postRepository.deleteById(postID);
+        return new ResponseEntity<>(new Message("게시글이 삭제 되었습니다.",null), HttpStatus.OK);
     }
 }
