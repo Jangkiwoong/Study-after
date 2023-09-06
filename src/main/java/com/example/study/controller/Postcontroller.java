@@ -27,6 +27,14 @@ public class Postcontroller {
     public ResponseEntity<Message> readPost() {
         return postService.readPost();
     }
+    /**
+     게시물 상세조회
+     localhost:8080/post-param?id=~&title=~
+     **/
+    @GetMapping("/post-param")
+    public ResponseEntity<Message> readParamPost(@RequestParam Long id, @RequestParam String title) {
+        return postService.readParamPost(id, title);
+    }
     //게시물 수정
    @PatchMapping("/post/{postId}")
     public ResponseEntity<Message> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto) {

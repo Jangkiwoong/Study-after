@@ -37,6 +37,14 @@ public class PostService {
         }
         return new ResponseEntity<>(new Message("게시글 전체 조회.",postlist), HttpStatus.OK);    }
 
+    //게시물 상세조회
+    public ResponseEntity<Message> readParamPost(Long id, String title) {
+        Post post = postRepository.findByIdAndtitle(id, title).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
+        return new ResponseEntity<>(new Message(null, post), HttpStatus.OK);
+    }
+
     //게시물 수정
     public ResponseEntity<Message> updatePost(Long postID, PostRequestDto postRequestDto) {
        Post post = postRepository.findById(postID).orElseThrow(
@@ -46,6 +54,7 @@ public class PostService {
        postRepository.save(post);
         return new ResponseEntity<>(new Message("게시글이 수정 되었습니다.",new PostResponseDto(post)), HttpStatus.OK);
     }
+
     //게시물 삭제
     public ResponseEntity<Message> deletePost(Long postID) {
         postRepository.findById(postID).orElseThrow(

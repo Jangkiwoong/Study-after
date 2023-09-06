@@ -29,4 +29,6 @@ public class Post {
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
     }
+
+
 }
