@@ -1,4 +1,4 @@
-package com.example.study.global;
+package com.example.study.global.queryDsL;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
