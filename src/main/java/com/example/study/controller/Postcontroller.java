@@ -1,14 +1,11 @@
 package com.example.study.controller;
 
 import com.example.study.dto.PostRequestDto;
-import com.example.study.dto.PostResponseDto;
 import com.example.study.global.util.Message;
 import com.example.study.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")

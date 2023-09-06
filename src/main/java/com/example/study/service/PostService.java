@@ -39,7 +39,7 @@ public class PostService {
 
     //게시물 상세조회
     public ResponseEntity<Message> readParamPost(Long id, String title) {
-        Post post = postRepository.findByIdAndtitle(id, title).orElseThrow(
+        Post post = postRepository.findByIdAndTitle(id, title).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
         );
         return new ResponseEntity<>(new Message(null, post), HttpStatus.OK);
