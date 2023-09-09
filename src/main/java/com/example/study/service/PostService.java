@@ -6,6 +6,8 @@ import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,13 +31,14 @@ public class PostService {
     }
 
     //게시물 조회
-    public  ResponseEntity<Message> readPost() {
-        List<Post> postlist = postRepository.findAll();
+    public  ResponseEntity<Message> readPost(Pageable pageable) {
+        Page<Post> postlist = (Page<Post>) postRepository.findAll(pageable);
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
-        for(Post post : postlist) {
-            postResponseDtoList.add(new PostResponseDto(post));
+        for(Post post2 : postlist) {
+            postResponseDtoList.add(new PostResponseDto(post2));
         }
-        return new ResponseEntity<>(new Message("게시글 전체 조회.",postlist), HttpStatus.OK);    }
+        return new ResponseEntity<>(new Message("게시글 전체 조회.",postlist), HttpStatus.OK);
+    }
 
     //게시물 상세조회
     public ResponseEntity<Message> readParamPost(Long id, String title) {

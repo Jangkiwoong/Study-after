@@ -4,6 +4,7 @@ import com.example.study.dto.PostRequestDto;
 import com.example.study.global.util.Message;
 import com.example.study.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class Postcontroller {
     }
     //게시물 조회
     @GetMapping("/post")
-    public ResponseEntity<Message> readPost() {
-        return postService.readPost();
+    public ResponseEntity<Message> readPost(Pageable pageable) {
+        return postService.readPost(pageable);
     }
     /**
      게시물 상세조회
