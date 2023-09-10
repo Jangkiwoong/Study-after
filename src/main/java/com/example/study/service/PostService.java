@@ -31,14 +31,17 @@ public class PostService {
         return new ResponseEntity<>(new Message("게시글이 작성 되었습니다.",new PostResponseDto(post)), HttpStatus.OK);
     }
 
-    //게시물 조회
+    //게시물 조회 (페이지네이션)
     public  ResponseEntity<Message> readPost(Pageable pageable) {
-        Page<Post> postlist = postRepository.findAll(pageable);
-        List<PostResponseDto> postResponseDtoList = new ArrayList<>();
-        for(Post post2 : postlist) {
-            postResponseDtoList.add(new PostResponseDto(post2));
+        Page<Post> postPage = postRepository.findAll(pageable);
+        if (postPage.isEmpty()) {
+            throw new IllegalArgumentException("해당 게시물은 존재하지 않습니다.");
         }
-        return new ResponseEntity<>(new Message("게시글 전체 조회.",postlist), HttpStatus.OK);
+        List<Post> postList = postPage.getContent();
+        return new ResponseEntity<>(new Message("게시글 전체 조회.", postList), HttpStatus.OK);
+        /**
+         강제 형변환 시켜주면 Page객체 안에 리스트 형태인 Content를 제외한 나머지 데이터들이 유실되서 로직 수행시 에러가 나타남
+         **/
     }
 
     //게시물 상세조회

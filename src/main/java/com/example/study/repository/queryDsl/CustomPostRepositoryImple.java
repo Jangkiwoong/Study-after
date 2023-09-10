@@ -4,30 +4,36 @@ import com.example.study.entity.Post;
 import com.example.study.entity.QPost;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class CustomPostRepositoryImple implements CustomPostRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public CustomPostRepositoryImple(JPAQueryFactory jpaQueryFactory) {
-        this.jpaQueryFactory = jpaQueryFactory;
-    }
-
     @Override
     public Page<Post> findAll(Pageable pageable) {
-        QueryResults<Post> queryResults = jpaQueryFactory
-                .selectFrom(QPost.post)
+        return (Page<Post>) jpaQueryFactory.selectFrom(QPost.post)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .fetchResults();
-
-        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
+                .fetch();
     }
+
+//    @Override
+//    public Page<Post> findAll(Pageable pageable) {
+//        QueryResults<Post> queryResults = jpaQueryFactory
+//                .selectFrom(QPost.post)
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .fetchResults();
+//
+//        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
+//    }
 }
 /**
 
