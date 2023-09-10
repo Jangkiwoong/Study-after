@@ -2,7 +2,7 @@ package com.example.study.dto;
 
 import org.springframework.data.domain.Sort;
 
-public class PageRequest {
+public class PageRequestDto {
 
     private int page = 1;
     private int size = 10;

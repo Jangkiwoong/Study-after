@@ -2,36 +2,31 @@ package com.example.study.repository.queryDsl;
 
 import com.example.study.entity.Post;
 import com.example.study.entity.QPost;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
-@RequiredArgsConstructor
+@Repository
 public class CustomPostRepositoryImple implements CustomPostRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-    private static final int PAGE_SIZE = 4;
 
-
-
-    @Override
-    public Optional<Post> findByIdAndTitle(Long id, String title) {
-        Post post = jpaQueryFactory.selectFrom(QPost.post)
-                .where(QPost.post.Id.eq(id).and(QPost.post.title.eq(title)))
-                .fetchOne();
-        return Optional.ofNullable(post);
+    public CustomPostRepositoryImple(JPAQueryFactory jpaQueryFactory) {
+        this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    //페이징 네이션
     @Override
-    public List<Post> findAll(Pageable pageable) {
- return jpaQueryFactory.selectFrom(QPost.post)
-                .offset((long) ( - 1) * PAGE_SIZE)
-                .limit(PAGE_SIZE)
-                .fetch();
+    public Page<Post> findAll(Pageable pageable) {
+        QueryResults<Post> queryResults = jpaQueryFactory
+                .selectFrom(QPost.post)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
     }
 }
 /**
