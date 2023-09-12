@@ -5,7 +5,6 @@ import com.example.study.dto.PostResponseDto;
 import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
-import com.example.study.repository.queryDsl.CustomPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
