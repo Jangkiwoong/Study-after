@@ -32,7 +32,7 @@ public class Postcontroller {
           http://localhost:8080/api/posts?pageNumber=0&pageSize=4
          **/
     }
-    
+
     //게시물 상세조회
     @GetMapping("/post-param")
     public ResponseEntity<Message> readParamPost(@RequestParam Long id, @RequestParam String title) {
