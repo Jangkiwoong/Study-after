@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 env:
-  PROJECT_NAME: cicd_project
+  PROJECT_NAME: cicdproject
   BUCKET_NAME: serverstudycicd
   CODE_DEPLOY_APP_NAME: cicdapp
   DEPLOYMENT_GROUP_NAME: cicdapp_codedeploy
