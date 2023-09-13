@@ -52,4 +52,10 @@ public class Postcontroller {
     public ResponseEntity<Message> deletePost(@PathVariable Long postId) {
         return postService.deletePost(postId);
     }
+
+    //테스트 코드
+    @GetMapping("/hello")
+    public String helloworld(){
+        return "CICD test";
+    }
 }
