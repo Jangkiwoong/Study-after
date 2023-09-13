@@ -9,7 +9,7 @@ env:
   PROJECT_NAME: study
   BUCKET_NAME: serverstudycicd
   CODE_DEPLOY_APP_NAME: cicdapp
-  DEPLOYMENT_GROUP_NAME: cicdapp_deploy
+  DEPLOYMENT_GROUP_NAME: cicdapp_codedeploy
 
 jobs:
   build:
