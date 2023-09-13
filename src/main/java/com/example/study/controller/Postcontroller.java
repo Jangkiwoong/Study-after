@@ -53,9 +53,9 @@ public class Postcontroller {
         return postService.deletePost(postId);
     }
 
-    //테스트 코드
-    @GetMapping("/hello")
-    public String helloworld(){
-        return "CICD test";
-    }
+//    //테스트 코드
+//    @GetMapping("/hello")
+//    public String helloworld(){
+//        return "CICD test";
+//    }
 }
