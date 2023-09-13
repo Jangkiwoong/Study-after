@@ -6,8 +6,8 @@ on:
     branches: [ main ]
 
 env:
-  PROJECT_NAME: cicd_project
-  BUCKET_NAME: kbsat-cicd-bucket
+  PROJECT_NAME: study
+  BUCKET_NAME: serverstudycicd
   CODE_DEPLOY_APP_NAME: cicdapp
   DEPLOYMENT_GROUP_NAME: cicdapp_deploy
 
