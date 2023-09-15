@@ -8,12 +8,11 @@ permissions:
   - object: /home/ec2-user/cicdproject/
     owner: ubuntu
     group: ubuntu
-
 hooks:
   AfterInstall:
-    - location: /home/ec2-user/cicdproject/scripts/deploy.sh
+    - location: scripts/deploy.sh
       timeout: 60
-      runas: ubuntu
+      runas: ec2-user
       
 # hooks:
 #   ApplicationStart:
