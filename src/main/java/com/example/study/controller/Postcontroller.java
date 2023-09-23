@@ -57,10 +57,10 @@ public class Postcontroller {
     }
 
     // 이미지 추가
-//    @PostMapping(value = "/admin/bean", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity<Message> createImagePost (@ModelAttribute PostRequestDto postRequestDto) throws IOException {
-//        return postService.createImagePost(postRequestDto);
-//    }
+    @PostMapping(value = "/admin/bean", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Message> createImagePost (@ModelAttribute PostRequestDto postRequestDto) throws IOException {
+        return postService.createImagePost(postRequestDto);
+    }
 //    //테스트 코드
 //    @GetMapping("/hello")
 //    public String helloworld(){

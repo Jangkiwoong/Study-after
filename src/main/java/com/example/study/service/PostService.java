@@ -5,7 +5,7 @@ import com.example.study.dto.PostResponseDto;
 import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
-//import com.example.study.s3.S3Uploader;
+import com.example.study.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-//    private final S3Uploader s3Uploader;
+    private final S3Uploader s3Uploader;
 
     //게시물 작성
     @Transactional
@@ -72,12 +72,12 @@ public class PostService {
         return new ResponseEntity<>(new Message("게시글이 삭제 되었습니다.",null), HttpStatus.OK);
     }
 
-//    //이미지 추가
-//    public ResponseEntity<Message> createImagePost(PostRequestDto postRequestDto) throws IOException {
-//        String imgUrl = s3Uploader.upload(postRequestDto.getImage());
-//        Post post = new Post(postRequestDto, imgUrl);
-//        postRepository.saveAndFlush(post);
-//
-//        return new ResponseEntity<>(new Message("이미지 등록 성공", null), HttpStatus.CREATED);
-//    }
+    //이미지 추가
+    public ResponseEntity<Message> createImagePost(PostRequestDto postRequestDto) throws IOException {
+        String imgUrl = s3Uploader.upload(postRequestDto.getImage());
+        Post post = new Post(postRequestDto, imgUrl);
+        postRepository.saveAndFlush(post);
+
+        return new ResponseEntity<>(new Message("이미지 등록 성공", null), HttpStatus.CREATED);
+    }
 }
