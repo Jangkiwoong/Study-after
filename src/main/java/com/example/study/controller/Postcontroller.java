@@ -6,8 +6,11 @@ import com.example.study.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -53,7 +56,11 @@ public class Postcontroller {
         return postService.deletePost(postId);
     }
 
-
+    // 이미지 추가
+//    @PostMapping(value = "/admin/bean", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<Message> createImagePost (@ModelAttribute PostRequestDto postRequestDto) throws IOException {
+//        return postService.createImagePost(postRequestDto);
+//    }
 //    //테스트 코드
 //    @GetMapping("/hello")
 //    public String helloworld(){

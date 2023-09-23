@@ -20,9 +20,18 @@ public class Post {
     @Column
     private String contents;
 
+    @Column
+    private String imageUrl;
+
     public Post(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
+    }
+
+    public Post(PostRequestDto postRequestDto, String imageUrl) {
+        this.title = postRequestDto.getTitle();
+        this.contents = postRequestDto.getContents();
+        this.imageUrl = imageUrl;
     }
 
     public void update(PostRequestDto postRequestDto) {
