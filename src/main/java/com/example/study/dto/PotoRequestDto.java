@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
-public class PostRequestDto {
-    private String title;
-    private String contents;
+public class PotoRequestDto {
+    private MultipartFile image;
 }

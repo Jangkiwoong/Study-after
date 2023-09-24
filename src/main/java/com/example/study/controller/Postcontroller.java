@@ -1,6 +1,7 @@
 package com.example.study.controller;
 
 import com.example.study.dto.PostRequestDto;
+import com.example.study.dto.PotoRequestDto;
 import com.example.study.global.util.Message;
 import com.example.study.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -58,8 +59,8 @@ public class Postcontroller {
 
     // 이미지 추가
     @PostMapping(value = "/admin/bean", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Message> createImagePost (@ModelAttribute PostRequestDto postRequestDto) throws IOException {
-        return postService.createImagePost(postRequestDto);
+    public ResponseEntity<Message> createImagePost (@ModelAttribute PotoRequestDto potoRequestDto) throws IOException {
+        return postService.createImagePost(potoRequestDto);
     }
 //    //테스트 코드
 //    @GetMapping("/hello")

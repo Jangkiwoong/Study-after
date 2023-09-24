@@ -28,9 +28,7 @@ public class Post {
         this.contents = postRequestDto.getContents();
     }
 
-    public Post(PostRequestDto postRequestDto, String imageUrl) {
-        this.title = postRequestDto.getTitle();
-        this.contents = postRequestDto.getContents();
+    public Post(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
