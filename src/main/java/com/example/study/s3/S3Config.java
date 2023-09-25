@@ -7,17 +7,21 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("classpath:application-s3.properties") // application-s3.properties 파일 로드
 public class S3Config {
-    @Value("&{cloud.aws.credentials.access-key}")
+
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
+    @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
-    @Value("&{cloud.aws.credentials.secret-key}")
+    @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
-    @Value("&{cloud.aws.region.static}")
-    private String region;
     @Bean
     public AmazonS3 amazonS3Client() {
 

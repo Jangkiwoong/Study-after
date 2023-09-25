@@ -2,7 +2,7 @@ package com.example.study.service;
 
 import com.example.study.dto.PostRequestDto;
 import com.example.study.dto.PostResponseDto;
-import com.example.study.dto.PotoRequestDto;
+import com.example.study.dto.PhotoRequestDto;
 import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
@@ -74,8 +74,8 @@ public class PostService {
     }
 
     //이미지 추가
-    public ResponseEntity<Message> createImagePost(PotoRequestDto potoRequestDto) throws IOException {
-        String imgUrl = s3Uploader.upload(potoRequestDto.getImage());
+    public ResponseEntity<Message> createImagePost(PhotoRequestDto photoRequestDto) throws IOException {
+        String imgUrl = s3Uploader.upload(photoRequestDto.getImage());
         Post post = new Post(imgUrl);
         postRepository.saveAndFlush(post);
 

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -14,24 +13,25 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-@RequiredArgsConstructor
-@Service
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class S3Uploader {
 
     private final AmazonS3 amazonS3;
 
-    @Value("&{cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     public String upload(MultipartFile multipartFile) throws IOException {
-        String fileName = "image/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
+        String s3FileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
 
         ObjectMetadata objMeta = new ObjectMetadata();
-        objMeta.setContentLength(multipartFile.getSize());
-        amazonS3.putObject(bucket, fileName, multipartFile.getInputStream(), objMeta);
-        return amazonS3.getUrl(bucket, fileName).toString();
+        objMeta.setContentLength(multipartFile.getInputStream().available());
+
+        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
+
+        return amazonS3.getUrl(bucket, s3FileName).toString();
     }
     //메타데이터인 객체를 만들어  파일의 크기를 설정
     //파일의 속성과 정보 제공: 메타데이터를 사용하여 파일의 속성을 정의하고 정보를 제공할 수 있습니다. 예를 들어,
