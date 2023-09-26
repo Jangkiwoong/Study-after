@@ -2,7 +2,6 @@ package com.example.study.service;
 
 import com.example.study.dto.PostRequestDto;
 import com.example.study.dto.PostResponseDto;
-import com.example.study.dto.PhotoRequestDto;
 import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostRepository;
@@ -74,9 +73,9 @@ public class PostService {
     }
 
     //이미지 추가
-    public ResponseEntity<Message> createImagePost(PhotoRequestDto photoRequestDto) throws IOException {
-        String imgUrl = s3Uploader.upload(photoRequestDto.getImage());
-        Post post = new Post(imgUrl);
+    public ResponseEntity<Message> createImagePost(PostRequestDto postRequestDto) throws IOException {
+        String imgUrl = s3Uploader.upload(postRequestDto.getImage());
+        Post post = new Post(imgUrl, postRequestDto);
         postRepository.saveAndFlush(post);
 
         return new ResponseEntity<>(new Message("이미지 등록 성공", null), HttpStatus.CREATED);

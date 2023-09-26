@@ -1,7 +1,6 @@
 package com.example.study.controller;
 
 import com.example.study.dto.PostRequestDto;
-import com.example.study.dto.PhotoRequestDto;
 import com.example.study.global.util.Message;
 import com.example.study.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,8 @@ public class Postcontroller {
     //게시물 조회
     @GetMapping("/posts")
     public ResponseEntity<Message> readPost(@RequestParam(defaultValue = "0") int pageNumber,
-                                            @RequestParam(defaultValue = "10") int pageSize) {
+                                            @RequestParam(defaultValue = "10") int pageSize)
+    {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return postService.readPost(pageable);
         /**
@@ -57,11 +57,13 @@ public class Postcontroller {
         return postService.deletePost(postId);
     }
 
-    // 이미지 추가
+    // 이미지 추가 S3
     @PostMapping(value = "/post/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Message> createImagePost (@ModelAttribute PhotoRequestDto photoRequestDto) throws IOException {
-        return postService.createImagePost(photoRequestDto);
+    public ResponseEntity<Message> createImagePost (@ModelAttribute  PostRequestDto postRequestDto) throws IOException {
+        return postService.createImagePost(postRequestDto);
     }
+
+    
 //    //테스트 코드
 //    @GetMapping("/hello")
 //    public String helloworld(){
