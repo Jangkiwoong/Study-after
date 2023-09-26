@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -63,7 +64,12 @@ public class Postcontroller {
         return postService.createImagePost(postRequestDto);
     }
 
-    
+    @PostMapping("/post/file")
+    public ResponseEntity<Message> createfile(@RequestParam MultipartFile multipartFile) throws IOException {
+        return postService.createfile(multipartFile);
+    }
+
+
 //    //테스트 코드
 //    @GetMapping("/hello")
 //    public String helloworld(){

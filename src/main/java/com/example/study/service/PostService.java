@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,5 +81,11 @@ public class PostService {
         postRepository.saveAndFlush(post);
 
         return new ResponseEntity<>(new Message("이미지 등록 성공", null), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Message> createfile(MultipartFile multipartFile) throws IOException {
+        String fullPath = "C:\\Users\\장기웅\\OneDrive\\바탕 화면\\새 폴더" + multipartFile.getOriginalFilename();
+        multipartFile.transferTo(new File(fullPath));
+        return new ResponseEntity<>(new Message("파일 저장 성공", multipartFile.getOriginalFilename()), HttpStatus.OK);
     }
 }
