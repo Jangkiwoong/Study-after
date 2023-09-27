@@ -64,10 +64,17 @@ public class Postcontroller {
         return postService.createImagePost(postRequestDto);
     }
 
-    @PostMapping("/post/file")
-    public ResponseEntity<Message> createfile(@RequestParam MultipartFile multipartFile) throws IOException {
+    /**
+     *
+     * @ModelAttribute는 클라이언트에서 요청한 multipart/form-data 형태의 HTTP BODY를 setter를 통해 오브젝트 형태로 맵핑해주는 어노테이션
+     * setter가 없다면 매핑에 실패하여 null을 갖게 된다.
+     */
+
+    @PostMapping(value = "/post/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Message> createfile(@ModelAttribute MultipartFile multipartFile) throws IOException {
         return postService.createfile(multipartFile);
     }
+    //https://www.youtube.com/watch?v=qeB2GzrSFAc&list=PLZzruF3-_clsWF2aULPsUPomgolJ-idGJ&index=14
 
 
 //    //테스트 코드
