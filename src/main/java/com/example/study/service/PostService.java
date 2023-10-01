@@ -4,6 +4,7 @@ import com.example.study.dto.PostRequestDto;
 import com.example.study.dto.PostResponseDto;
 import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
+import com.example.study.repository.PostFileRepository;
 import com.example.study.repository.PostRepository;
 import com.example.study.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.study.entity.PostFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostFileRepository postFileRepository;
     private final S3Uploader s3Uploader;
 
     //게시물 작성
@@ -84,8 +88,22 @@ public class PostService {
     }
 
     public ResponseEntity<Message> createfile(MultipartFile multipartFile) throws IOException {
-        String fullPath = "C:\\Users\\장기웅\\OneDrive\\바탕 화면\\새 폴더" + multipartFile.getOriginalFilename();
-        multipartFile.transferTo(new File(fullPath));
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+
+        UUID uuid = UUID.randomUUID();
+
+        String fileName = uuid + "_" + multipartFile.getOriginalFilename();
+        String filePath =  "/files/" + fileName;
+
+        File saveFile = new File(projectPath, fileName);
+
+        multipartFile.transferTo(saveFile);
+
+        PostFile postFile = new PostFile();
+        postFile.setFileName(fileName);
+        postFile.setFilePath(filePath);
+
+        postFileRepository.save(postFile);
         return new ResponseEntity<>(new Message("파일 저장 성공", multipartFile.getOriginalFilename()), HttpStatus.OK);
     }
 }
