@@ -6,7 +6,7 @@ import com.example.study.entity.Post;
 import com.example.study.global.util.Message;
 import com.example.study.repository.PostFileRepository;
 import com.example.study.repository.PostRepository;
-import com.example.study.s3.S3Uploader;
+import com.example.study.global.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -106,10 +106,10 @@ public class PostService {
         // 파일의 상대 경로를 생성 (클라이언트가 파일을 다운로드 할때 필요한 경로)
         String filePath =  "/files/" + fileName;
 
-        // 파일을 저장할 위치와 이름을 설정합니다
+        // 파일을 저장할 위치와 이름을 설정
         File saveFile = new File(projectPath, fileName);
 
-        // 업로드된 파일의 내용을 실제 파일로 복사하여 저장합니다
+        // 업로드된 파일의 내용을 실제 파일로 복사하여 저장
         multipartFile.transferTo(saveFile);
 
         // 업로드된 파일 정보를 데이터베이스에 저장하기 위한 PostFile 객체 생성
@@ -117,7 +117,7 @@ public class PostService {
         postFile.setFileName(fileName);
         postFile.setFilePath(filePath);
 
-        // PostFile 객체를 데이터베이스에 저장합니다
+        // PostFile 객체를 데이터베이스에 저장
         postFileRepository.save(postFile);
         return new ResponseEntity<>(new Message("파일 저장 성공", multipartFile.getOriginalFilename()), HttpStatus.OK);
     }

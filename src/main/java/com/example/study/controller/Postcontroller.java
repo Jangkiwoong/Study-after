@@ -70,11 +70,14 @@ public class Postcontroller {
      * setter가 없다면 매핑에 실패하여 null을 갖게 된다.
      */
 
+    //파일 저장
     @PostMapping(value = "/post/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Message> createfile(@ModelAttribute MultipartFile multipartFile) throws IOException {
         return postService.createfile(multipartFile);
     }
     //https://www.youtube.com/watch?v=qeB2GzrSFAc&list=PLZzruF3-_clsWF2aULPsUPomgolJ-idGJ&index=14
+
+    //웹소캣
 
 
 //    //테스트 코드
