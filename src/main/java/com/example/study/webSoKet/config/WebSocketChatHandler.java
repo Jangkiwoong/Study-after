@@ -1,4 +1,4 @@
-package com.example.study.webSoKet;
+package com.example.study.webSoKet.config;
 
 import com.example.study.webSoKet.dto.ChatDTO;
 import com.example.study.webSoKet.dto.ChatRoom;
